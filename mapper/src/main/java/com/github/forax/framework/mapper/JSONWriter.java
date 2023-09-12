@@ -1,8 +1,8 @@
 package com.github.forax.framework.mapper;
 
-import java.beans.BeanInfo;
 import java.beans.PropertyDescriptor;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public final class JSONWriter {
@@ -18,18 +18,25 @@ public final class JSONWriter {
   }
 
   private String beanToJson(Object o) {
-    PropertyDescriptor[] properties = DATA_CLASS_VALUE.get(o.getClass());
-    return Arrays.stream(properties)
-          .filter(property -> !property.getName().equals("class"))
-          .map(property -> '"' + property.getName() + "\": " + toJSON(Utils.invokeMethod(o, property.getReadMethod())))
+    return DATA_CLASS_VALUE.get(o.getClass()).stream()
+          .map(generator -> generator.generate(this, o))
           .collect(Collectors.joining(", ", "{", "}"));
   }
+  @FunctionalInterface
+  public interface Generator {
+    String generate(JSONWriter writer, Object bean);
+  }
 
-  private static final ClassValue<PropertyDescriptor[]> DATA_CLASS_VALUE = new ClassValue<>() {
+
+  private static final ClassValue<List<Generator>> DATA_CLASS_VALUE = new ClassValue<>() {
     @Override
-    protected PropertyDescriptor[] computeValue(Class<?> type) {
-      PropertyDescriptor[] data = Utils.beanInfo(type).getPropertyDescriptors();
-      return data;
+    protected List<Generator> computeValue(Class<?> type) {
+      PropertyDescriptor[] properties = Utils.beanInfo(type).getPropertyDescriptors();
+      return Arrays.stream(properties)
+        .filter(property -> !property.getName().equals("class"))
+        .<Generator>map(property ->
+          (JSONWriter w, Object o) -> "\"" + property.getName() + "\": " + w.toJSON(Utils.invokeMethod(o, property.getReadMethod())))
+        .toList();
     }
   };
 }
