@@ -22,11 +22,6 @@ public final class JSONWriter {
           .map(generator -> generator.generate(this, o))
           .collect(Collectors.joining(", ", "{", "}"));
   }
-  @FunctionalInterface
-  public interface Generator {
-    String generate(JSONWriter writer, Object bean);
-  }
-
 
   private static final ClassValue<List<Generator>> DATA_CLASS_VALUE = new ClassValue<>() {
     @Override
@@ -35,11 +30,17 @@ public final class JSONWriter {
       return Arrays.stream(properties)
         .filter(property -> !property.getName().equals("class"))
         .<Generator>map(property -> {
-          var key = "\"" + property.getName() + "\": ";
           var method = property.getReadMethod();
+          var annotation = method.getAnnotation(JSONProperty.class);
+          var key = "\"" + (annotation != null ? annotation.value() : property.getName()) + "\": ";
           return (JSONWriter w, Object o) -> key + w.toJSON(Utils.invokeMethod(o, method));
         })
         .toList();
     }
   };
+
+  @FunctionalInterface
+  public interface Generator {
+    String generate(JSONWriter writer, Object bean);
+  }
 }
