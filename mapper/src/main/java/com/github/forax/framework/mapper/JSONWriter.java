@@ -18,10 +18,18 @@ public final class JSONWriter {
   }
 
   private String beanToJson(Object o) {
-    PropertyDescriptor[] properties = Utils.beanInfo(o.getClass()).getPropertyDescriptors();
+    PropertyDescriptor[] properties = DATA_CLASS_VALUE.get(o.getClass());
     return Arrays.stream(properties)
           .filter(property -> !property.getName().equals("class"))
           .map(property -> '"' + property.getName() + "\": " + toJSON(Utils.invokeMethod(o, property.getReadMethod())))
           .collect(Collectors.joining(", ", "{", "}"));
   }
+
+  private static final ClassValue<PropertyDescriptor[]> DATA_CLASS_VALUE = new ClassValue<>() {
+    @Override
+    protected PropertyDescriptor[] computeValue(Class<?> type) {
+      PropertyDescriptor[] data = Utils.beanInfo(type).getPropertyDescriptors();
+      return data;
+    }
+  };
 }
