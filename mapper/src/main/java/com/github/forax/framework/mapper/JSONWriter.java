@@ -39,6 +39,14 @@ public final class JSONWriter {
     }
   };
 
+//  private static List<PropertyDescriptor> beanProperties(Class<?> type) {
+//    return Utils.beanInfo(type).getPropertyDescriptors();
+//  }
+//
+//  private static List<PropertyDescriptor> recordProperties(Class<?> type) {
+//    // TODO
+//  }
+
   @FunctionalInterface
   public interface Generator {
     String generate(JSONWriter writer, Object bean);
