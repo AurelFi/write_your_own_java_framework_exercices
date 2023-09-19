@@ -48,6 +48,10 @@ public final class InjectorRegistry {
     });
   }
 
+  public <T> void registerProviderClass(Class<T> providerClass) {
+    registerProviderClass(providerClass, providerClass);
+  }
+
   // Package visible for testing
   static List<PropertyDescriptor> findInjectableProperties(Class<?> type) {
     var info = Utils.beanInfo(type);

@@ -493,7 +493,6 @@ public class InjectorRegistryTest {
     }
   }
 
-  /*
   @Nested
   public class Q7 {
     static class Service {
@@ -545,5 +544,4 @@ public class InjectorRegistryTest {
       assertThrows(NullPointerException.class, () -> registry.registerProviderClass(null));
     }
   }
-  */
 }
