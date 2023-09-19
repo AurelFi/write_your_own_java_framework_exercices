@@ -1,12 +1,14 @@
 package com.github.forax.framework.injector;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public final class InjectorRegistry {
 
@@ -36,12 +38,12 @@ public final class InjectorRegistry {
   public <T> void registerProviderClass(Class<T> type, Class<? extends T> providerClass) {
     Objects.requireNonNull(type);
     Objects.requireNonNull(providerClass);
-    var constructor = Utils.defaultConstructor(providerClass);
+    var constructor = getConstructor(providerClass);
+    var properties = findInjectableProperties(providerClass);
+    var params = constructor.getParameterTypes();
     registerProvider(type, () -> {
-      T instance = Utils.newInstance(constructor);
-      for (PropertyDescriptor p : findInjectableProperties(instance.getClass())) {
-        callSetter(instance, p);
-      }
+      var instance = Utils.newInstance(constructor, Arrays.stream(params).map(this::lookupInstance).toArray());
+      properties.forEach(p -> callSetter(instance, p));
       return instance;
     });
   }
@@ -59,9 +61,21 @@ public final class InjectorRegistry {
     return setter != null && setter.isAnnotationPresent(Inject.class);
   }
 
+  private static <T> Constructor<T> getConstructor(Class<T> type) {
+    var constructors = Arrays.stream(type.getConstructors())
+        .filter(c -> c.isAnnotationPresent(Inject.class) || c.getParameterCount() == 0)
+        .toArray(Constructor[]::new);
+    return switch (constructors.length) {
+      case 0 -> throw new NoSuchMethodError("Missing default constructor OR annotated constructor");
+      case 1 -> constructors[0];
+      default -> throw new IllegalStateException("Too much valid constructors");
+    };
+  }
+
   private void callSetter(Object instance, PropertyDescriptor p) {
     var method = p.getWriteMethod();
     var params = Arrays.stream(method.getParameterTypes()).map(this::lookupInstance).toArray();
     Utils.invokeMethod(instance, method, params);
   }
+
 }
