@@ -95,7 +95,7 @@ public class InjectorRegistryTest {
       assertThrows(NullPointerException.class, () -> registry.lookupInstance(null));
     }
   }
-  /*
+
   @Nested
   public class Q2 {
     @Test @Tag("Q2")
@@ -105,14 +105,15 @@ public class InjectorRegistryTest {
       String instance = registry.lookupInstance(String.class);
       assertEquals("hello", instance);
     }
-    //@Test @Tag("Q2")
-    //public void shouldNotCompilePreciseSignature() {
-    //  var registry = new InjectorRegistry();
-    //  registry.registerInstance(String.class, 3);
-    //}
+//    @Test @Tag("Q2")
+//    public void shouldNotCompilePreciseSignature() {
+//      var registry = new InjectorRegistry();
+//      registry.registerInstance(String.class, 3);
+//    }
   }
 
 
+  /*
   @Nested
   public class Q3 {
     @Test @Tag("Q3")
