@@ -25,12 +25,25 @@ public final class InjectorRegistry {
     return type.cast(val.get());
   }
 
-  public <T> void registerProvider(Class<T> type, Supplier<T> supplier) {
+  public <T> void registerProvider(Class<T> type, Supplier<? extends T> supplier) {
     Objects.requireNonNull(type);
     Objects.requireNonNull(supplier);
     if (null != registry.putIfAbsent(type, supplier)) {
       throw new IllegalStateException("Recipe already registered for " + type.getName());
     }
+  }
+
+  public <T> void registerProviderClass(Class<T> type, Class<? extends T> providerClass) {
+    Objects.requireNonNull(type);
+    Objects.requireNonNull(providerClass);
+    var constructor = Utils.defaultConstructor(providerClass);
+    registerProvider(type, () -> {
+      T instance = Utils.newInstance(constructor);
+      for (PropertyDescriptor p : findInjectableProperties(instance.getClass())) {
+        callSetter(instance, p);
+      }
+      return instance;
+    });
   }
 
   // Package visible for testing
@@ -44,5 +57,11 @@ public final class InjectorRegistry {
   private static boolean isWriterAnnotated(PropertyDescriptor property) {
     var setter = property.getWriteMethod();
     return setter != null && setter.isAnnotationPresent(Inject.class);
+  }
+
+  private void callSetter(Object instance, PropertyDescriptor p) {
+    var method = p.getWriteMethod();
+    var params = Arrays.stream(method.getParameterTypes()).map(this::lookupInstance).toArray();
+    Utils.invokeMethod(instance, method, params);
   }
 }

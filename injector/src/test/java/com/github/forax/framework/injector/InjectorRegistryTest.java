@@ -243,7 +243,6 @@ public class InjectorRegistryTest {
   }
 
 
-  /*
   @Nested
   public class Q5 {
     public static class Empty {}
@@ -372,6 +371,7 @@ public class InjectorRegistryTest {
   }
 
 
+  /*
   @Nested
   public class Q6 {
     @Test @Tag("Q6")
