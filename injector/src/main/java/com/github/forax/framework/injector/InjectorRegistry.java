@@ -1,6 +1,10 @@
 package com.github.forax.framework.injector;
 
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -27,5 +31,18 @@ public final class InjectorRegistry {
     if (null != registry.putIfAbsent(type, supplier)) {
       throw new IllegalStateException("Recipe already registered for " + type.getName());
     }
+  }
+
+  // Package visible for testing
+  static List<PropertyDescriptor> findInjectableProperties(Class<?> type) {
+    var info = Utils.beanInfo(type);
+    return Arrays.stream(info.getPropertyDescriptors())
+        .filter(InjectorRegistry::isWriterAnnotated)
+        .toList();
+  }
+
+  private static boolean isWriterAnnotated(PropertyDescriptor property) {
+    var setter = property.getWriteMethod();
+    return setter != null && setter.isAnnotationPresent(Inject.class);
   }
 }

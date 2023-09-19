@@ -157,7 +157,6 @@ public class InjectorRegistryTest {
   }
 
 
-  /*
   @Nested
   public class Q4 {
     public static class A {
@@ -244,6 +243,7 @@ public class InjectorRegistryTest {
   }
 
 
+  /*
   @Nested
   public class Q5 {
     public static class Empty {}
