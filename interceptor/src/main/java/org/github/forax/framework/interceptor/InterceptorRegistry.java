@@ -13,13 +13,15 @@ public final class InterceptorRegistry {
   public void addAroundAdvice(Class<? extends Annotation> annotationClass, AroundAdvice aroundAdvice) {
     Objects.requireNonNull(annotationClass);
     Objects.requireNonNull(aroundAdvice);
-    advices.computeIfAbsent(annotationClass, __ -> new ArrayList<>()).add(aroundAdvice);
-  }
-
-  List<AroundAdvice> findAdvices(Method method) {
-    return Arrays.stream(method.getAnnotations())
-        .flatMap(annotation -> advices.getOrDefault(annotation.annotationType(), List.of()).stream())
-        .toList();
+    addInterceptor(annotationClass, ((instance, method, args, invocation) -> {
+          aroundAdvice.before(instance, method, args);
+          Object result = null;
+          try {
+            return result = invocation.proceed(instance, method, args);
+          } finally {
+            aroundAdvice.after(instance, method, args, result);
+          }
+    }));
   }
 
   public void addInterceptor(Class<? extends Annotation> annotationClass, Interceptor interceptor) {
@@ -50,19 +52,9 @@ public final class InterceptorRegistry {
     return type.cast(Proxy.newProxyInstance(type.getClassLoader(),
         new Class<?>[]{type},
         (Object __, Method method, Object[] args) -> {
-          var methodAdvices = findAdvices(method);
-          for (var advice : methodAdvices) {
-            advice.before(delegate, method, args);
-          }
-          Object ret = null;
-          try {
-            ret = method.invoke(delegate, args);
-            return ret;
-          } finally {
-            for (var advice : methodAdvices.reversed()) {
-              advice.after(delegate, method, args, ret);
-            }
-          }
+            var methodInterceptors = findInterceptors(method);
+            var invocation = getInvocation(methodInterceptors);
+            return invocation.proceed(delegate, method, args);
         }));
   }
 }
