@@ -3,20 +3,22 @@ package org.github.forax.framework.interceptor;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Stream;
 
 public final class InterceptorRegistry {
-  private AroundAdvice advice;
+  private final HashMap<Class<?>, List<AroundAdvice>> advices = new HashMap<>();
 
   public void addAroundAdvice(Class<? extends Annotation> annotationClass, AroundAdvice aroundAdvice) {
     Objects.requireNonNull(annotationClass);
     Objects.requireNonNull(aroundAdvice);
-    advice = aroundAdvice;
+    advices.computeIfAbsent(annotationClass, __ -> new ArrayList<>()).add(aroundAdvice);
+  }
+
+  List<AroundAdvice> findAdvices(Method method) {
+    return Arrays.stream(method.getAnnotations())
+        .flatMap(annotation -> advices.getOrDefault(annotation.annotationType(), List.of()).stream())
+        .toList();
   }
 
   public <T> T createProxy(Class<T> type, T delegate) {
@@ -24,14 +26,19 @@ public final class InterceptorRegistry {
     Objects.requireNonNull(delegate);
     return type.cast(Proxy.newProxyInstance(type.getClassLoader(),
         new Class<?>[]{type},
-        (Object proxy, Method method, Object[] args) -> {
-          advice.before(delegate, method, args);
+        (Object __, Method method, Object[] args) -> {
+          var methodAdvices = findAdvices(method);
+          for (var advice : methodAdvices) {
+            advice.before(delegate, method, args);
+          }
           Object ret = null;
           try {
             ret = method.invoke(delegate, args);
             return ret;
           } finally {
-            advice.after(delegate, method, args, ret);
+            for (var advice : methodAdvices.reversed()) {
+              advice.after(delegate, method, args, ret);
+            }
           }
         }));
   }
