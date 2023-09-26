@@ -7,7 +7,6 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public final class InterceptorRegistry {
-  private final HashMap<Class<?>, List<AroundAdvice>> advices = new HashMap<>();
   private final HashMap<Class<?>, List<Interceptor>> interceptors = new HashMap<>();
 
   public void addAroundAdvice(Class<? extends Annotation> annotationClass, AroundAdvice aroundAdvice) {
