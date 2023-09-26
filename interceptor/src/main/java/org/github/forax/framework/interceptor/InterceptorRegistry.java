@@ -29,10 +29,19 @@ public final class InterceptorRegistry {
 
   }
 
-  List<?> findInterceptors(Method method) {
+  List<Interceptor> findInterceptors(Method method) {
     return Arrays.stream(method.getAnnotations())
         .flatMap(annotation -> interceptors.getOrDefault(annotation.annotationType(), List.of()).stream())
         .toList();
+  }
+
+  public static Invocation getInvocation(List<Interceptor> interceptorList) {
+    Invocation invocation = Utils::invokeMethod;
+    for (var interceptor : interceptorList.reversed()) {
+      var curInvocation = invocation;
+      invocation = (instance, method, args) -> interceptor.intercept(instance, method, args, curInvocation);
+    }
+    return invocation;
   }
 
   public <T> T createProxy(Class<T> type, T delegate) {
