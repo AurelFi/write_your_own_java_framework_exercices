@@ -125,16 +125,25 @@ public final class ORM {
   }
 
   public static void createTable(Class<?> beanClass) throws SQLException {
+    Objects.requireNonNull(beanClass);
     var tableName = findTableName(beanClass);
     var connection = currentConnection();
     var query = Arrays.stream(Utils.beanInfo(beanClass).getPropertyDescriptors())
         .filter(p -> !p.getName().equals("class"))
-        .map(property -> findColumnName(property) + " VARCHAR(255)")
+        .map(ORM::colToSQL)
         .collect(Collectors.joining(",\n  ", "CREATE TABLE " + tableName + " (\n  ", ");\n"));
 
     try (Statement statement = connection.createStatement()) {
       statement.executeUpdate(query);
     }
     connection.commit();
+  }
+
+  private static String colToSQL(PropertyDescriptor property) {
+    var propertyType = property.getPropertyType();
+    var sqlType = TYPE_MAPPING.get(propertyType);
+    if (sqlType == null)
+      throw new IllegalStateException("Unknown type " + propertyType);
+    return findColumnName(property) + " " + sqlType + (propertyType.isPrimitive() ? " NOT NULL" : "");
   }
 }
