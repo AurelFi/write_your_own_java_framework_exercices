@@ -21,6 +21,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public final class ORM {
@@ -100,5 +101,40 @@ public final class ORM {
       throw new IllegalStateException();
     }
     return connection;
+  }
+
+  /**
+   * Takes a bean class as argument and returns the name of the table.
+   * @param beanClass class to get the table name from
+   * @return the table name
+   */
+  static String findTableName(Class<?> beanClass) {
+    var annotation = beanClass.getAnnotation(Table.class);
+    var name = annotation == null ? beanClass.getSimpleName() : annotation.value();
+    return name.toUpperCase(Locale.ROOT);
+  }
+
+  static String findColumnName(PropertyDescriptor property) {
+    var getter = property.getReadMethod();
+    if (getter == null) {
+      throw new IllegalStateException("No getter for property " + property.getName());
+    }
+    var annotation = getter.getAnnotation(Column.class);
+    var name = annotation == null ? property.getName() : annotation.value();
+    return name.toUpperCase(Locale.ROOT);
+  }
+
+  public static void createTable(Class<?> beanClass) throws SQLException {
+    var tableName = findTableName(beanClass);
+    var connection = currentConnection();
+    var query = Arrays.stream(Utils.beanInfo(beanClass).getPropertyDescriptors())
+        .filter(p -> !p.getName().equals("class"))
+        .map(property -> findColumnName(property) + " VARCHAR(255)")
+        .collect(Collectors.joining(",\n  ", "CREATE TABLE " + tableName + " (\n  ", ");\n"));
+
+    try (Statement statement = connection.createStatement()) {
+      statement.executeUpdate(query);
+    }
+    connection.commit();
   }
 }

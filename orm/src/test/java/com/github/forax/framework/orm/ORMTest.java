@@ -83,7 +83,6 @@ public class ORMTest {
   }
 
 
-  /*
   @Nested
   public class Q2 {
 
@@ -206,7 +205,6 @@ public class ORMTest {
   public static final class EmptyBean {
     public EmptyBean() { }
   }
-
 
   @Nested
   public class Q3 {
@@ -344,6 +342,8 @@ public class ORMTest {
     }
   }
 
+
+  /*
   @Nested
   public class Q4 {
 
