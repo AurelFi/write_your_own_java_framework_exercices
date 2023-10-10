@@ -49,6 +49,13 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JUnit.ORMTest$Q1.executor": "Run",
+    "JUnit.ORMTest$Q3.executor": "Run",
+    "JUnit.ORMTest$Q3.testCreateTableEmpty.executor": "Debug",
+    "JUnit.ORMTest$Q3.testFindTableName.executor": "Run",
+    "JUnit.ORMTest$Q4.executor": "Run",
+    "JUnit.ORMTest$Q5.executor": "Run",
+    "JUnit.ORMTest.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
@@ -63,7 +70,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Java",
+    "settings.editor.selected.configurable": "Errors",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -96,68 +103,8 @@
       <command value="mvn package" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ORMTest$Q1">
-    <configuration name="InterceptorRegistryTest$Q3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="interceptor" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.github.forax.framework.interceptor.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.github.forax.framework.interceptor.InterceptorRegistryTest" />
-      <option name="MAIN_CLASS_NAME" value="org.github.forax.framework.interceptor.InterceptorRegistryTest$Q3" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="InterceptorRegistryTest$Q4" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="interceptor" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.github.forax.framework.interceptor.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.github.forax.framework.interceptor.InterceptorRegistryTest" />
-      <option name="MAIN_CLASS_NAME" value="org.github.forax.framework.interceptor.InterceptorRegistryTest$Q4" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="InterceptorRegistryTest$Q5" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="interceptor" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.github.forax.framework.interceptor.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.github.forax.framework.interceptor.InterceptorRegistryTest" />
-      <option name="MAIN_CLASS_NAME" value="org.github.forax.framework.interceptor.InterceptorRegistryTest$Q5" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="InterceptorRegistryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="interceptor" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.github.forax.framework.interceptor.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.github.forax.framework.interceptor" />
-      <option name="MAIN_CLASS_NAME" value="org.github.forax.framework.interceptor.InterceptorRegistryTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ORMTest$Q1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.ORMTest$Q5">
+    <configuration name="ORMTest$Q3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="orm" />
       <extension name="coverage">
         <pattern>
@@ -166,7 +113,69 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.github.forax.framework.orm.ORMTest" />
-      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest$Q1" />
+      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest$Q3" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ORMTest$Q3.testCreateTableEmpty" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="orm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.forax.framework.orm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.forax.framework.orm.ORMTest" />
+      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest$Q3" />
+      <option name="METHOD_NAME" value="testCreateTableEmpty" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ORMTest$Q3.testFindTableName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="orm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.forax.framework.orm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.forax.framework.orm.ORMTest" />
+      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest$Q3" />
+      <option name="METHOD_NAME" value="testFindTableName" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ORMTest$Q4" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="orm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.forax.framework.orm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.forax.framework.orm.ORMTest" />
+      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest$Q4" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ORMTest$Q5" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="orm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.forax.framework.orm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.forax.framework.orm.ORMTest" />
+      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest$Q5" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -174,19 +183,18 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ORMTest$Q1" />
-        <item itemvalue="JUnit.InterceptorRegistryTest" />
-        <item itemvalue="JUnit.InterceptorRegistryTest$Q5" />
-        <item itemvalue="JUnit.InterceptorRegistryTest$Q4" />
-        <item itemvalue="JUnit.InterceptorRegistryTest$Q3" />
+        <item itemvalue="JUnit.ORMTest$Q5" />
+        <item itemvalue="JUnit.ORMTest$Q4" />
+        <item itemvalue="JUnit.ORMTest$Q3" />
+        <item itemvalue="JUnit.ORMTest$Q3.testCreateTableEmpty" />
+        <item itemvalue="JUnit.ORMTest$Q3.testFindTableName" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-20.0.2-openjdk-20.0.2-a7578c744062-f6d3e0aa" />
-        <option value="jdk-21-openjdk-21-a7578c744062-2d8f7eb2" />
+        <option value="jdk-21-openjdk-21-f7c5cae7cb59-cf7f003e" />
       </set>
     </attachedChunks>
   </component>
@@ -249,6 +257,7 @@
       <workItem from="1696494464333" duration="26000" />
       <workItem from="1696922518699" duration="330000" />
       <workItem from="1696922856789" duration="2165000" />
+      <workItem from="1696925103977" duration="4282000" />
     </task>
     <task id="LOCAL-00006" summary="Mapper-Q6tmp">
       <option name="closed" value="true" />
@@ -386,7 +395,31 @@
       <option name="project" value="LOCAL" />
       <updated>1695722838761</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="ORM Q1">
+      <option name="closed" value="true" />
+      <created>1696925324073</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1696925324073</updated>
+    </task>
+    <task id="LOCAL-00024" summary="ORM Q3">
+      <option name="closed" value="true" />
+      <created>1696927991293</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1696927991293</updated>
+    </task>
+    <task id="LOCAL-00025" summary="ORM Q4">
+      <option name="closed" value="true" />
+      <created>1696928764895</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1696928764895</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -405,9 +438,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="run CI with Java 19" />
-    <MESSAGE value="fix typo" />
-    <MESSAGE value="update to Java 21" />
     <MESSAGE value="move to Java 21" />
     <MESSAGE value="add mdule IntelliJ file" />
     <MESSAGE value="21 is not yet released" />
@@ -430,7 +460,10 @@
     <MESSAGE value="Interceptor Q5" />
     <MESSAGE value="Interceptor Q6" />
     <MESSAGE value="Interceptor Q7" />
-    <option name="LAST_COMMIT_MESSAGE" value="Interceptor Q7" />
+    <MESSAGE value="ORM Q1" />
+    <MESSAGE value="ORM Q3" />
+    <MESSAGE value="ORM Q4" />
+    <option name="LAST_COMMIT_MESSAGE" value="ORM Q4" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

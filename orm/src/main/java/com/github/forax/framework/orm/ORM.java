@@ -8,6 +8,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.Serial;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
@@ -115,11 +116,7 @@ public final class ORM {
   }
 
   static String findColumnName(PropertyDescriptor property) {
-    var getter = property.getReadMethod();
-    if (getter == null) {
-      throw new IllegalStateException("No getter for property " + property.getName());
-    }
-    var annotation = getter.getAnnotation(Column.class);
+    var annotation = GetGetterMethod(property).getAnnotation(Column.class);
     var name = annotation == null ? property.getName() : annotation.value();
     return name.toUpperCase(Locale.ROOT);
   }
@@ -139,11 +136,31 @@ public final class ORM {
     connection.commit();
   }
 
+  private static boolean isPrimary(PropertyDescriptor property) {
+    return GetGetterMethod(property).isAnnotationPresent(Id.class);
+  }
+
+  private static boolean isGenerated(PropertyDescriptor property) {
+    return GetGetterMethod(property).isAnnotationPresent(GeneratedValue.class);
+  }
+
+  private static Method GetGetterMethod(PropertyDescriptor property) {
+    var getter = property.getReadMethod();
+    if (getter == null) {
+      throw new IllegalStateException("No getter for property " + property.getName());
+    }
+    return getter;
+  }
+
   private static String colToSQL(PropertyDescriptor property) {
     var propertyType = property.getPropertyType();
     var sqlType = TYPE_MAPPING.get(propertyType);
     if (sqlType == null)
       throw new IllegalStateException("Unknown type " + propertyType);
-    return findColumnName(property) + " " + sqlType + (propertyType.isPrimitive() ? " NOT NULL" : "");
+    var colName = findColumnName(property);
+    var notNull = propertyType.isPrimitive() ? " NOT NULL" : "";
+    var generated = isGenerated(property) ? " AUTO_INCREMENT" : "";
+    var primary = isPrimary(property) ? ", PRIMARY KEY (" + colName + ")" : "";
+    return colName + " " + sqlType + notNull + generated + primary;
   }
 }
