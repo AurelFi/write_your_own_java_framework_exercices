@@ -1,5 +1,7 @@
 package com.github.forax.framework.orm;
 
+import org.h2.mvstore.tx.Transaction;
+
 import javax.sql.DataSource;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
@@ -74,5 +76,29 @@ public final class ORM {
 
   // --- do not change the code above
 
-  //TODO
+  private static final ThreadLocal<Connection> CONNECTION_THREAD_LOCAL = new ThreadLocal<>();
+
+  public static void transaction(DataSource dataSource, TransactionBlock block) throws SQLException {
+    try (Connection connection = dataSource.getConnection()) {
+      CONNECTION_THREAD_LOCAL.set(connection);
+      try {
+        connection.setAutoCommit(false);
+        block.run();
+        connection.commit();
+      } catch (SQLException e) {
+        connection.rollback();
+        throw e;
+      } finally {
+        CONNECTION_THREAD_LOCAL.remove();
+      }
+    }
+  }
+
+  static Connection currentConnection() {
+    var connection = CONNECTION_THREAD_LOCAL.get();
+    if (connection == null) {
+      throw new IllegalStateException();
+    }
+    return connection;
+  }
 }
