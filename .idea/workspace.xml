@@ -47,40 +47,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "JUnit.ORMTest$Q1.executor": "Run",
-    "JUnit.ORMTest$Q3.executor": "Run",
-    "JUnit.ORMTest$Q3.testCreateTableEmpty.executor": "Debug",
-    "JUnit.ORMTest$Q3.testFindTableName.executor": "Run",
-    "JUnit.ORMTest$Q4.executor": "Run",
-    "JUnit.ORMTest$Q5.executor": "Run",
-    "JUnit.ORMTest.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "full.screen.before.presentation.mode": "false",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Documents/Education/ESIPE/S3/Projet/FICHE",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "Errors",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JUnit.ORMTest$Q1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ORMTest$Q3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ORMTest$Q3.testCreateTableEmpty.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ORMTest$Q3.testFindTableName.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ORMTest$Q4.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ORMTest$Q5.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ORMTest$Q6.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ORMTest.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Documents/Education/ESIPE/S3/Projet/FICHE&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "GitStage.ChangesTree.GroupingKeys": [
-      "directory",
-      "module",
-      "repository"
+  &quot;keyToStringList&quot;: {
+    &quot;GitStage.ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;,
+      &quot;module&quot;,
+      &quot;repository&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/orm/src/main/java/com/github/forax/framework/orm" />
@@ -103,7 +104,7 @@
       <command value="mvn package" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ORMTest$Q5">
+  <component name="RunManager" selected="JUnit.ORMTest$Q6">
     <configuration name="ORMTest$Q3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="orm" />
       <extension name="coverage">
@@ -130,22 +131,6 @@
       <option name="PACKAGE_NAME" value="com.github.forax.framework.orm.ORMTest" />
       <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest$Q3" />
       <option name="METHOD_NAME" value="testCreateTableEmpty" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ORMTest$Q3.testFindTableName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="orm" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.github.forax.framework.orm.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.github.forax.framework.orm.ORMTest" />
-      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest$Q3" />
-      <option name="METHOD_NAME" value="testFindTableName" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -181,13 +166,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ORMTest$Q6" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="orm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.forax.framework.orm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.forax.framework.orm.ORMTest" />
+      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest$Q6" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ORMTest$Q6" />
         <item itemvalue="JUnit.ORMTest$Q5" />
         <item itemvalue="JUnit.ORMTest$Q4" />
         <item itemvalue="JUnit.ORMTest$Q3" />
         <item itemvalue="JUnit.ORMTest$Q3.testCreateTableEmpty" />
-        <item itemvalue="JUnit.ORMTest$Q3.testFindTableName" />
       </list>
     </recent_temporary>
   </component>
@@ -257,7 +257,9 @@
       <workItem from="1696494464333" duration="26000" />
       <workItem from="1696922518699" duration="330000" />
       <workItem from="1696922856789" duration="2165000" />
-      <workItem from="1696925103977" duration="4282000" />
+      <workItem from="1696925103977" duration="7209000" />
+      <workItem from="1697092601122" duration="204000" />
+      <workItem from="1697097670062" duration="11000" />
     </task>
     <task id="LOCAL-00006" summary="Mapper-Q6tmp">
       <option name="closed" value="true" />
@@ -419,7 +421,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696928764895</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="ORM Q5">
+      <option name="closed" value="true" />
+      <created>1696929412573</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1696929412573</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -438,7 +448,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="move to Java 21" />
     <MESSAGE value="add mdule IntelliJ file" />
     <MESSAGE value="21 is not yet released" />
     <MESSAGE value="Mapper-Q2" />
@@ -463,7 +472,8 @@
     <MESSAGE value="ORM Q1" />
     <MESSAGE value="ORM Q3" />
     <MESSAGE value="ORM Q4" />
-    <option name="LAST_COMMIT_MESSAGE" value="ORM Q4" />
+    <MESSAGE value="ORM Q5" />
+    <option name="LAST_COMMIT_MESSAGE" value="ORM Q5" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

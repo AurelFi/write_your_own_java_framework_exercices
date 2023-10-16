@@ -116,7 +116,7 @@ public final class ORM {
   }
 
   static String findColumnName(PropertyDescriptor property) {
-    var annotation = GetGetterMethod(property).getAnnotation(Column.class);
+    var annotation = getGetterMethod(property).getAnnotation(Column.class);
     var name = annotation == null ? property.getName() : annotation.value();
     return name.toUpperCase(Locale.ROOT);
   }
@@ -137,14 +137,14 @@ public final class ORM {
   }
 
   private static boolean isPrimary(PropertyDescriptor property) {
-    return GetGetterMethod(property).isAnnotationPresent(Id.class);
+    return getGetterMethod(property).isAnnotationPresent(Id.class);
   }
 
   private static boolean isGenerated(PropertyDescriptor property) {
-    return GetGetterMethod(property).isAnnotationPresent(GeneratedValue.class);
+    return getGetterMethod(property).isAnnotationPresent(GeneratedValue.class);
   }
 
-  private static Method GetGetterMethod(PropertyDescriptor property) {
+  private static Method getGetterMethod(PropertyDescriptor property) {
     var getter = property.getReadMethod();
     if (getter == null) {
       throw new IllegalStateException("No getter for property " + property.getName());
@@ -163,4 +163,50 @@ public final class ORM {
     var primary = isPrimary(property) ? ", PRIMARY KEY (" + colName + ")" : "";
     return colName + " " + sqlType + notNull + generated + primary;
   }
+
+
+  public static <T extends Repository<?,?>> T createRepository(Class<T> repositoryClass) {
+    Objects.requireNonNull(repositoryClass);
+    var beanType = findBeanTypeFromRepository(repositoryClass);
+    return repositoryClass.cast(Proxy.newProxyInstance(repositoryClass.getClassLoader(),
+        new Class<?>[]{repositoryClass},
+        (Object __, Method method, Object[] args) -> {
+            try {
+              return switch (method.getName()) {
+                case "findAll" -> findAll(beanType);
+                case "equals", "hashCode", "toString" -> throw new UnsupportedOperationException();
+                default -> throw new IllegalStateException("Unknown method");
+              };
+            } catch (SQLException e) {
+              throw new UncheckedSQLException(e);
+            }
+        }));
+  }
+
+  private static List<?> findAll(Class<?> beanType) throws SQLException {
+    var connection = currentConnection();
+    var query = "SELECT * FROM " + findTableName(beanType);
+    var constructor = Utils.defaultConstructor(beanType);
+    var properties = Utils.beanInfo(beanType).getPropertyDescriptors();
+    var list = new ArrayList<>();
+
+    try (var statement = connection.createStatement()) {
+      try(ResultSet resultSet = statement.executeQuery(query)) {
+        while(resultSet.next()) {
+          var instance = Utils.newInstance(constructor); // On créé l'instance vide
+          var index = 1;
+          for (PropertyDescriptor property : properties) {
+            if (property.getName().equals("class")) {
+              continue;
+            }
+            Utils.invokeMethod(instance, property.getWriteMethod(), resultSet.getObject(index++));
+          }
+          list.add(instance);
+        }
+      }
+    }
+    return list;
+  }
+
+  // TODO Q7 & Q8
 }
