@@ -90,6 +90,8 @@ public final class ORM {
       } catch (SQLException e) {
         connection.rollback();
         throw e;
+      } catch (UncheckedSQLException e) {
+        throw e.getCause();
       } finally {
         CONNECTION_THREAD_LOCAL.remove();
       }
@@ -184,29 +186,37 @@ public final class ORM {
   }
 
   private static List<?> findAll(Class<?> beanType) throws SQLException {
-    var connection = currentConnection();
     var query = "SELECT * FROM " + findTableName(beanType);
-    var constructor = Utils.defaultConstructor(beanType);
-    var properties = Utils.beanInfo(beanType).getPropertyDescriptors();
-    var list = new ArrayList<>();
+    try {
+      return findAll(currentConnection(), query, Utils.beanInfo(beanType), Utils.defaultConstructor(beanType));
+    } catch (UncheckedSQLException e) {
+      throw new SQLException(e);
+    }
+  }
 
-    try (var statement = connection.createStatement()) {
-      try(ResultSet resultSet = statement.executeQuery(query)) {
+  static <T> T toEntityClass(ResultSet resultSet, BeanInfo beanInfo, Constructor<? extends T> constructor) throws SQLException {
+    var instance = Utils.newInstance(constructor); // On créé l'instance vide
+    for (var property : beanInfo.getPropertyDescriptors()) {
+      var name = property.getName();
+      if (name.equals("class")) {
+        continue;
+      }
+      Utils.invokeMethod(instance, property.getWriteMethod(), resultSet.getObject(name));
+    }
+    return instance;
+  }
+
+  static <T> List<T> findAll(Connection connection, String sqlQuery, BeanInfo beanInfo, Constructor<? extends T> constructor) throws SQLException {
+    var list = new ArrayList<T>();
+    try (var statement = connection.prepareStatement(sqlQuery)) {
+      try (ResultSet resultSet = statement.executeQuery()) {
         while(resultSet.next()) {
-          var instance = Utils.newInstance(constructor); // On créé l'instance vide
-          var index = 1;
-          for (PropertyDescriptor property : properties) {
-            if (property.getName().equals("class")) {
-              continue;
-            }
-            Utils.invokeMethod(instance, property.getWriteMethod(), resultSet.getObject(index++));
-          }
-          list.add(instance);
+          list.add(toEntityClass(resultSet, beanInfo, constructor));
         }
       }
     }
     return list;
   }
 
-  // TODO Q7 & Q8
+  // TODO Q8
 }
