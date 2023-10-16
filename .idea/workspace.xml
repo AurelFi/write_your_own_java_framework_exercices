@@ -47,41 +47,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;JUnit.ORMTest$Q1.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ORMTest$Q3.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ORMTest$Q3.testCreateTableEmpty.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ORMTest$Q3.testFindTableName.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ORMTest$Q4.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ORMTest$Q5.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ORMTest$Q6.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ORMTest.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Documents/Education/ESIPE/S3/Projet/FICHE&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.ORMTest$Q1.executor": "Run",
+    "JUnit.ORMTest$Q3.executor": "Run",
+    "JUnit.ORMTest$Q3.testCreateTableEmpty.executor": "Debug",
+    "JUnit.ORMTest$Q3.testFindTableName.executor": "Run",
+    "JUnit.ORMTest$Q4.executor": "Run",
+    "JUnit.ORMTest$Q5.executor": "Run",
+    "JUnit.ORMTest$Q6.executor": "Run",
+    "JUnit.ORMTest$Q7.executor": "Run",
+    "JUnit.ORMTest.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "full.screen.before.presentation.mode": "false",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Documents/Education/ESIPE/S3/Projet/FICHE",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "Errors",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;GitStage.ChangesTree.GroupingKeys&quot;: [
-      &quot;directory&quot;,
-      &quot;module&quot;,
-      &quot;repository&quot;
+  "keyToStringList": {
+    "GitStage.ChangesTree.GroupingKeys": [
+      "directory",
+      "module",
+      "repository"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/orm/src/main/java/com/github/forax/framework/orm" />
@@ -104,53 +105,7 @@
       <command value="mvn package" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ORMTest$Q6">
-    <configuration name="ORMTest$Q3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="orm" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.github.forax.framework.orm.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.github.forax.framework.orm.ORMTest" />
-      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest$Q3" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ORMTest$Q3.testCreateTableEmpty" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="orm" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.github.forax.framework.orm.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.github.forax.framework.orm.ORMTest" />
-      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest$Q3" />
-      <option name="METHOD_NAME" value="testCreateTableEmpty" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ORMTest$Q4" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="orm" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.github.forax.framework.orm.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.github.forax.framework.orm.ORMTest" />
-      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest$Q4" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.ORMTest$Q8">
     <configuration name="ORMTest$Q5" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="orm" />
       <extension name="coverage">
@@ -181,13 +136,58 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ORMTest$Q7" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="orm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.forax.framework.orm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.forax.framework.orm.ORMTest" />
+      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest$Q7" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ORMTest$Q8" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="orm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.forax.framework.orm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.forax.framework.orm.ORMTest" />
+      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest$Q8" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ORMTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="orm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.forax.framework.orm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.forax.framework.orm" />
+      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ORMTest$Q8" />
+        <item itemvalue="JUnit.ORMTest" />
+        <item itemvalue="JUnit.ORMTest$Q7" />
         <item itemvalue="JUnit.ORMTest$Q6" />
         <item itemvalue="JUnit.ORMTest$Q5" />
-        <item itemvalue="JUnit.ORMTest$Q4" />
-        <item itemvalue="JUnit.ORMTest$Q3" />
-        <item itemvalue="JUnit.ORMTest$Q3.testCreateTableEmpty" />
       </list>
     </recent_temporary>
   </component>
@@ -429,7 +429,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696929412573</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="ORM Q7">
+      <option name="closed" value="true" />
+      <created>1697480800478</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1697480800478</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -448,7 +456,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="add mdule IntelliJ file" />
     <MESSAGE value="21 is not yet released" />
     <MESSAGE value="Mapper-Q2" />
     <MESSAGE value="Mapper-Q3" />
@@ -473,7 +480,22 @@
     <MESSAGE value="ORM Q3" />
     <MESSAGE value="ORM Q4" />
     <MESSAGE value="ORM Q5" />
-    <option name="LAST_COMMIT_MESSAGE" value="ORM Q5" />
+    <MESSAGE value="ORM Q7" />
+    <option name="LAST_COMMIT_MESSAGE" value="ORM Q7" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/orm/src/test/java/com/github/forax/framework/orm/ORMTest.java</url>
+          <line>763</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

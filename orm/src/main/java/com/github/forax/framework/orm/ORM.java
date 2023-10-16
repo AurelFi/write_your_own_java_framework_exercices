@@ -176,6 +176,7 @@ public final class ORM {
             try {
               return switch (method.getName()) {
                 case "findAll" -> findAll(beanType);
+                case "save" -> save(args[0]);
                 case "equals", "hashCode", "toString" -> throw new UnsupportedOperationException();
                 default -> throw new IllegalStateException("Unknown method");
               };
@@ -218,5 +219,38 @@ public final class ORM {
     return list;
   }
 
+  static String createSaveQuery(String tableName, BeanInfo beanInfo) {
+    var properties = new ArrayList<String>();
+    for (var property : beanInfo.getPropertyDescriptors()) {
+        var name = property.getName();
+        if (!name.equals("class")) {
+          properties.add(name);
+        }
+    }
+    var placeholders = properties.stream().map(s -> "?").collect(Collectors.joining(", ", "(", ");"));
+    var names = properties.stream().collect(Collectors.joining(", ", " (", ") VALUES "));
+    return "INSERT INTO " + tableName + names + placeholders;
+  }
+
+  static <T> T save(Connection connection, String tableName, BeanInfo beanInfo, T bean, String idProperty) throws SQLException {
+    var query = createSaveQuery(tableName, beanInfo);
+    try(var statement = connection.prepareStatement(query)) {
+      int i = 1 ;
+      for (var property : beanInfo.getPropertyDescriptors()) {
+        var name = property.getName();
+        if (!name.equals("class")) {
+          statement.setObject(i++, Utils.invokeMethod(bean, property.getReadMethod()));
+        }
+      }
+      statement.executeUpdate();
+    }
+    connection.commit();
+    return bean;
+  }
+
+  public static <T> T save(T bean) throws SQLException {
+    var beanType = bean.getClass();
+    return save(currentConnection(), findTableName(beanType), Utils.beanInfo(beanType), bean, null);
+  }
   // TODO Q8
 }
