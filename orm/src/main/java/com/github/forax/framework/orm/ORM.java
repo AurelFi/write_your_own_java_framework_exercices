@@ -2,6 +2,7 @@ package com.github.forax.framework.orm;
 
 import javax.sql.DataSource;
 import java.beans.BeanInfo;
+import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.Serial;
 import java.lang.reflect.Constructor;
@@ -173,7 +174,17 @@ public final class ORM {
         case "findById" -> findAll(currentConnection(), "SELECT * FROM " + tableName + " WHERE " + findColumnName(idProperty) + " = ?", beanInfo, constructor, args[0]).stream().findFirst();
         case "save" -> save(currentConnection(), tableName, beanInfo, args[0], idProperty);
         case "equals", "hashCode", "toString" -> throw new UnsupportedOperationException();
-        default -> throw new IllegalStateException("Unknown method");
+        default -> {
+          var annotation = method.getAnnotation(Query.class);
+          var name = method.getName();
+          if (annotation == null && !name.startsWith("findBy")) {
+            throw new IllegalStateException("Unknown method");
+          } if (name.startsWith("findBy")) {
+            var property = findProperty(beanInfo, name.substring(6));
+            yield findAll(currentConnection(), "SELECT * FROM " + tableName + " WHERE " + findColumnName(property) + " = ?", beanInfo, constructor, args[0]).stream().findFirst();
+          }
+          yield findAll(currentConnection(), annotation.value(), beanInfo, constructor, args);
+        }
       }));
   }
 
@@ -192,8 +203,10 @@ public final class ORM {
   static <T> List<T> findAll(Connection connection, String sqlQuery, BeanInfo beanInfo, Constructor<? extends T> constructor, Object... args) {
     var list = new ArrayList<T>();
     try (var statement = connection.prepareStatement(sqlQuery)) {
-      for (var i = 0 ; i < args.length ; i++) {
-        statement.setObject(i + 1, args[i]);
+      if (args != null) {
+        for (var i = 0 ; i < args.length ; i++) {
+          statement.setObject(i + 1, args[i]);
+        }
       }
       try (ResultSet resultSet = statement.executeQuery()) {
         while(resultSet.next()) {
@@ -246,5 +259,17 @@ public final class ORM {
       }
     }
     return null;
+  }
+
+  static PropertyDescriptor findProperty(BeanInfo beanInfo, String name) {
+    Objects.requireNonNull(beanInfo);
+    Objects.requireNonNull(name);
+    name = Introspector.decapitalize(name);
+    for (var property : beanInfo.getPropertyDescriptors()) {
+      if (property.getName().equals(name)) {
+        return property;
+      }
+    }
+    throw new IllegalStateException("No property found for name '" + name + "' in " + beanInfo.getClass().getName());
   }
 }

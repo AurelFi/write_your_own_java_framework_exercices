@@ -1050,7 +1050,6 @@ public class ORMTest {
   }
 
 
-  /*
   @Nested
   public class Q12 {
 
@@ -1264,5 +1263,4 @@ public class ORMTest {
     }
 
   }
-  */
 }
