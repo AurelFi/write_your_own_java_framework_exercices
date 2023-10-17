@@ -773,7 +773,7 @@ public class ORMTest {
     public void testCreateSaveQuery() {
       var beanInfo = Utils.beanInfo(Person.class);
       var sqlQuery = ORM.createSaveQuery("PERSON", beanInfo);
-      assertTrue(sqlQuery.endsWith("INTO PERSON (id, name) VALUES (?, ?);"));
+      assertTrue(sqlQuery.endsWith("INTO PERSON (ID, NAME) VALUES (?, ?);"));
     }
 
     @Test @Tag("Q8")

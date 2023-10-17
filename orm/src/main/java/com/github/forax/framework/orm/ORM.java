@@ -1,10 +1,7 @@
 package com.github.forax.framework.orm;
 
-import org.h2.mvstore.tx.Transaction;
-
 import javax.sql.DataSource;
 import java.beans.BeanInfo;
-import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.Serial;
 import java.lang.reflect.Constructor;
@@ -15,13 +12,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
-import java.util.StringJoiner;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -91,6 +82,7 @@ public final class ORM {
         connection.rollback();
         throw e;
       } catch (UncheckedSQLException e) {
+        connection.rollback();
         throw e.getCause();
       } finally {
         CONNECTION_THREAD_LOCAL.remove();
@@ -170,29 +162,17 @@ public final class ORM {
   public static <T extends Repository<?,?>> T createRepository(Class<T> repositoryClass) {
     Objects.requireNonNull(repositoryClass);
     var beanType = findBeanTypeFromRepository(repositoryClass);
+    var beanInfo = Utils.beanInfo(beanType);
+    var constructor = Utils.defaultConstructor(beanType);
+    var tableName = findTableName(beanType);
     return repositoryClass.cast(Proxy.newProxyInstance(repositoryClass.getClassLoader(),
-        new Class<?>[]{repositoryClass},
-        (Object __, Method method, Object[] args) -> {
-            try {
-              return switch (method.getName()) {
-                case "findAll" -> findAll(beanType);
-                case "save" -> save(args[0]);
-                case "equals", "hashCode", "toString" -> throw new UnsupportedOperationException();
-                default -> throw new IllegalStateException("Unknown method");
-              };
-            } catch (SQLException e) {
-              throw new UncheckedSQLException(e);
-            }
-        }));
-  }
-
-  private static List<?> findAll(Class<?> beanType) throws SQLException {
-    var query = "SELECT * FROM " + findTableName(beanType);
-    try {
-      return findAll(currentConnection(), query, Utils.beanInfo(beanType), Utils.defaultConstructor(beanType));
-    } catch (UncheckedSQLException e) {
-      throw new SQLException(e);
-    }
+      new Class<?>[]{repositoryClass},
+      (Object __, Method method, Object[] args) -> switch (method.getName()) {
+        case "findAll" -> findAll(currentConnection(), "SELECT * FROM " + tableName, beanInfo, constructor);
+        case "save" -> save(currentConnection(), tableName, beanInfo, args[0], null);
+        case "equals", "hashCode", "toString" -> throw new UnsupportedOperationException();
+        default -> throw new IllegalStateException("Unknown method");
+      }));
   }
 
   static <T> T toEntityClass(ResultSet resultSet, BeanInfo beanInfo, Constructor<? extends T> constructor) throws SQLException {
@@ -207,7 +187,7 @@ public final class ORM {
     return instance;
   }
 
-  static <T> List<T> findAll(Connection connection, String sqlQuery, BeanInfo beanInfo, Constructor<? extends T> constructor) throws SQLException {
+  static <T> List<T> findAll(Connection connection, String sqlQuery, BeanInfo beanInfo, Constructor<? extends T> constructor) {
     var list = new ArrayList<T>();
     try (var statement = connection.prepareStatement(sqlQuery)) {
       try (ResultSet resultSet = statement.executeQuery()) {
@@ -215,21 +195,20 @@ public final class ORM {
           list.add(toEntityClass(resultSet, beanInfo, constructor));
         }
       }
+    } catch (SQLException e) {
+      throw new UncheckedSQLException(e);
     }
     return list;
   }
 
   static String createSaveQuery(String tableName, BeanInfo beanInfo) {
-    var properties = new ArrayList<String>();
-    for (var property : beanInfo.getPropertyDescriptors()) {
-        var name = property.getName();
-        if (!name.equals("class")) {
-          properties.add(name);
-        }
-    }
-    var placeholders = properties.stream().map(s -> "?").collect(Collectors.joining(", ", "(", ");"));
-    var names = properties.stream().collect(Collectors.joining(", ", " (", ") VALUES "));
-    return "INSERT INTO " + tableName + names + placeholders;
+    var properties = beanInfo.getPropertyDescriptors();
+    var names = Arrays.stream(properties)
+        .filter(property -> !property.getName().equals("class"))
+        .map(ORM::findColumnName)
+        .collect(Collectors.joining(", ", " (", ") VALUES ("));
+    var placeholders = String.join(", ", Collections.nCopies(properties.length - 1, "?"));
+    return "INSERT INTO " + tableName + names + placeholders + ");";
   }
 
   static <T> T save(Connection connection, String tableName, BeanInfo beanInfo, T bean, String idProperty) throws SQLException {
@@ -247,10 +226,4 @@ public final class ORM {
     connection.commit();
     return bean;
   }
-
-  public static <T> T save(T bean) throws SQLException {
-    var beanType = bean.getClass();
-    return save(currentConnection(), findTableName(beanType), Utils.beanInfo(beanType), bean, null);
-  }
-  // TODO Q8
 }
