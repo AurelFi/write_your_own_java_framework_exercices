@@ -60,8 +60,11 @@
     "JUnit.ORMTest$Q5.executor": "Run",
     "JUnit.ORMTest$Q6.executor": "Run",
     "JUnit.ORMTest$Q7.executor": "Run",
+    "JUnit.ORMTest$Q9.executor": "Run",
     "JUnit.ORMTest.executor": "Run",
+    "Notification.DisplayName-DoNotAsk-Compiler": "Build finished",
     "Notification.DisplayName-DoNotAsk-WindowsDefender": "Microsoft Defender configuration",
+    "Notification.DoNotAsk-Compiler": "true",
     "Notification.DoNotAsk-WindowsDefender": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -110,8 +113,8 @@
       <command value="mvn package" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ORMTest">
-    <configuration name="ORMTest$Q5" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.ORMTest$Q10">
+    <configuration name="ORMTest$Q10" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="orm" />
       <extension name="coverage">
         <pattern>
@@ -120,22 +123,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.github.forax.framework.orm.ORMTest" />
-      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest$Q5" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ORMTest$Q6" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="orm" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.github.forax.framework.orm.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.github.forax.framework.orm.ORMTest" />
-      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest$Q6" />
+      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest$Q10" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -171,6 +159,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ORMTest$Q9" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="orm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.forax.framework.orm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.forax.framework.orm.ORMTest" />
+      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest$Q9" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ORMTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="orm" />
       <extension name="coverage">
@@ -188,11 +191,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ORMTest$Q10" />
+        <item itemvalue="JUnit.ORMTest$Q9" />
         <item itemvalue="JUnit.ORMTest" />
         <item itemvalue="JUnit.ORMTest$Q7" />
         <item itemvalue="JUnit.ORMTest$Q8" />
-        <item itemvalue="JUnit.ORMTest$Q6" />
-        <item itemvalue="JUnit.ORMTest$Q5" />
       </list>
     </recent_temporary>
   </component>
@@ -265,7 +268,7 @@
       <workItem from="1696925103977" duration="7209000" />
       <workItem from="1697092601122" duration="204000" />
       <workItem from="1697097670062" duration="11000" />
-      <workItem from="1697527699506" duration="1882000" />
+      <workItem from="1697527699506" duration="3994000" />
     </task>
     <task id="LOCAL-00006" summary="Mapper-Q6tmp">
       <option name="closed" value="true" />
@@ -443,7 +446,23 @@
       <option name="project" value="LOCAL" />
       <updated>1697480800478</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Q7&amp;8 enhancement">
+      <option name="closed" value="true" />
+      <created>1697529607952</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1697529607952</updated>
+    </task>
+    <task id="LOCAL-00029" summary="ORM Q9">
+      <option name="closed" value="true" />
+      <created>1697531412481</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1697531412481</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -462,8 +481,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="21 is not yet released" />
-    <MESSAGE value="Mapper-Q2" />
     <MESSAGE value="Mapper-Q3" />
     <MESSAGE value="Mapper-Q4" />
     <MESSAGE value="Mapper-Q6" />
@@ -487,7 +504,9 @@
     <MESSAGE value="ORM Q4" />
     <MESSAGE value="ORM Q5" />
     <MESSAGE value="ORM Q7" />
-    <option name="LAST_COMMIT_MESSAGE" value="ORM Q7" />
+    <MESSAGE value="Q7&amp;8 enhancement" />
+    <MESSAGE value="ORM Q9" />
+    <option name="LAST_COMMIT_MESSAGE" value="ORM Q9" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

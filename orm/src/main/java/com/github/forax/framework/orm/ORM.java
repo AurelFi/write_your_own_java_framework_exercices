@@ -209,7 +209,7 @@ public final class ORM {
         .map(ORM::findColumnName)
         .collect(Collectors.joining(", ", " (", ") VALUES ("));
     var placeholders = String.join(", ", Collections.nCopies(properties.length - 1, "?"));
-    return "INSERT INTO " + tableName + names + placeholders + ");";
+    return "MERGE INTO " + tableName + names + placeholders + ");";
   }
 
   static <T> T save(Connection connection, String tableName, BeanInfo beanInfo, T bean, PropertyDescriptor idProperty) throws SQLException {
