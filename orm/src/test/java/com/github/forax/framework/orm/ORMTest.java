@@ -834,7 +834,6 @@ public class ORMTest {
   }
 
 
-  /*
   @SuppressWarnings("unused")
   public static class Data {
     private String id;
@@ -871,6 +870,7 @@ public class ORMTest {
   }
 
 
+  /*
   @SuppressWarnings("unused")
   static final class Account {
     private Integer id;

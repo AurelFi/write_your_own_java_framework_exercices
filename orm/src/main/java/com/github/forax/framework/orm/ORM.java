@@ -165,11 +165,12 @@ public final class ORM {
     var beanInfo = Utils.beanInfo(beanType);
     var constructor = Utils.defaultConstructor(beanType);
     var tableName = findTableName(beanType);
+    var propertyId = findId(beanInfo);
     return repositoryClass.cast(Proxy.newProxyInstance(repositoryClass.getClassLoader(),
       new Class<?>[]{repositoryClass},
       (Object __, Method method, Object[] args) -> switch (method.getName()) {
         case "findAll" -> findAll(currentConnection(), "SELECT * FROM " + tableName, beanInfo, constructor);
-        case "save" -> save(currentConnection(), tableName, beanInfo, args[0], null);
+        case "save" -> save(currentConnection(), tableName, beanInfo, args[0], propertyId);
         case "equals", "hashCode", "toString" -> throw new UnsupportedOperationException();
         default -> throw new IllegalStateException("Unknown method");
       }));
@@ -211,9 +212,9 @@ public final class ORM {
     return "INSERT INTO " + tableName + names + placeholders + ");";
   }
 
-  static <T> T save(Connection connection, String tableName, BeanInfo beanInfo, T bean, String idProperty) throws SQLException {
+  static <T> T save(Connection connection, String tableName, BeanInfo beanInfo, T bean, PropertyDescriptor idProperty) throws SQLException {
     var query = createSaveQuery(tableName, beanInfo);
-    try(var statement = connection.prepareStatement(query)) {
+    try(var statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
       int i = 1 ;
       for (var property : beanInfo.getPropertyDescriptors()) {
         var name = property.getName();
@@ -222,8 +223,24 @@ public final class ORM {
         }
       }
       statement.executeUpdate();
+      if (idProperty != null) {
+        try(ResultSet resultSet = statement.getGeneratedKeys()) {
+          if (resultSet.next()) {
+            Utils.invokeMethod(bean, idProperty.getWriteMethod(), resultSet.getObject(1));
+          }
+        }
+      }
     }
     connection.commit();
     return bean;
+  }
+
+  private static PropertyDescriptor findId(BeanInfo beanInfo) {
+    for (var property : beanInfo.getPropertyDescriptors()) {
+      if (property.getReadMethod().isAnnotationPresent(Id.class)) {
+        return property;
+      }
+    }
+    return null;
   }
 }
