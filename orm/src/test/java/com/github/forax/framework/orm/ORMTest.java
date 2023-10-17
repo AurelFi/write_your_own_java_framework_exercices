@@ -933,7 +933,6 @@ public class ORMTest {
 
   }
 
-  /*
   @SuppressWarnings("unused")
   static final class Pet {
     private Long id;
@@ -1051,6 +1050,7 @@ public class ORMTest {
   }
 
 
+  /*
   @Nested
   public class Q12 {
 

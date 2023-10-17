@@ -165,12 +165,13 @@ public final class ORM {
     var beanInfo = Utils.beanInfo(beanType);
     var constructor = Utils.defaultConstructor(beanType);
     var tableName = findTableName(beanType);
-    var propertyId = findId(beanInfo);
+    var idProperty = findId(beanInfo);
     return repositoryClass.cast(Proxy.newProxyInstance(repositoryClass.getClassLoader(),
       new Class<?>[]{repositoryClass},
       (Object __, Method method, Object[] args) -> switch (method.getName()) {
         case "findAll" -> findAll(currentConnection(), "SELECT * FROM " + tableName, beanInfo, constructor);
-        case "save" -> save(currentConnection(), tableName, beanInfo, args[0], propertyId);
+        case "findById" -> findAll(currentConnection(), "SELECT * FROM " + tableName + " WHERE " + findColumnName(idProperty) + " = ?", beanInfo, constructor, args[0]).stream().findFirst();
+        case "save" -> save(currentConnection(), tableName, beanInfo, args[0], idProperty);
         case "equals", "hashCode", "toString" -> throw new UnsupportedOperationException();
         default -> throw new IllegalStateException("Unknown method");
       }));
@@ -188,9 +189,12 @@ public final class ORM {
     return instance;
   }
 
-  static <T> List<T> findAll(Connection connection, String sqlQuery, BeanInfo beanInfo, Constructor<? extends T> constructor) {
+  static <T> List<T> findAll(Connection connection, String sqlQuery, BeanInfo beanInfo, Constructor<? extends T> constructor, Object... args) {
     var list = new ArrayList<T>();
     try (var statement = connection.prepareStatement(sqlQuery)) {
+      for (var i = 0 ; i < args.length ; i++) {
+        statement.setObject(i + 1, args[i]);
+      }
       try (ResultSet resultSet = statement.executeQuery()) {
         while(resultSet.next()) {
           list.add(toEntityClass(resultSet, beanInfo, constructor));
@@ -235,7 +239,7 @@ public final class ORM {
     return bean;
   }
 
-  private static PropertyDescriptor findId(BeanInfo beanInfo) {
+  static PropertyDescriptor findId(BeanInfo beanInfo) {
     for (var property : beanInfo.getPropertyDescriptors()) {
       if (property.getReadMethod().isAnnotationPresent(Id.class)) {
         return property;

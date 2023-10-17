@@ -53,6 +53,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "JUnit.ORMTest$Q1.executor": "Run",
+    "JUnit.ORMTest$Q10.executor": "Run",
     "JUnit.ORMTest$Q3.executor": "Run",
     "JUnit.ORMTest$Q3.testCreateTableEmpty.executor": "Debug",
     "JUnit.ORMTest$Q3.testFindTableName.executor": "Run",
@@ -80,7 +81,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "inlay.hints",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -113,7 +114,7 @@
       <command value="mvn package" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ORMTest$Q10">
+  <component name="RunManager" selected="JUnit.ORMTest">
     <configuration name="ORMTest$Q10" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="orm" />
       <extension name="coverage">
@@ -191,9 +192,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ORMTest" />
         <item itemvalue="JUnit.ORMTest$Q10" />
         <item itemvalue="JUnit.ORMTest$Q9" />
-        <item itemvalue="JUnit.ORMTest" />
         <item itemvalue="JUnit.ORMTest$Q7" />
         <item itemvalue="JUnit.ORMTest$Q8" />
       </list>
@@ -268,7 +269,7 @@
       <workItem from="1696925103977" duration="7209000" />
       <workItem from="1697092601122" duration="204000" />
       <workItem from="1697097670062" duration="11000" />
-      <workItem from="1697527699506" duration="3994000" />
+      <workItem from="1697527699506" duration="5247000" />
     </task>
     <task id="LOCAL-00006" summary="Mapper-Q6tmp">
       <option name="closed" value="true" />
@@ -462,7 +463,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697531412481</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="ORM Q10">
+      <option name="closed" value="true" />
+      <created>1697532009484</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1697532009484</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -481,7 +490,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Mapper-Q3" />
     <MESSAGE value="Mapper-Q4" />
     <MESSAGE value="Mapper-Q6" />
     <MESSAGE value="Mapper-Q6tmp" />
@@ -506,7 +514,8 @@
     <MESSAGE value="ORM Q7" />
     <MESSAGE value="Q7&amp;8 enhancement" />
     <MESSAGE value="ORM Q9" />
-    <option name="LAST_COMMIT_MESSAGE" value="ORM Q9" />
+    <MESSAGE value="ORM Q10" />
+    <option name="LAST_COMMIT_MESSAGE" value="ORM Q10" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
