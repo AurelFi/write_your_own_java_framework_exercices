@@ -4,15 +4,13 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class JSONReader {
+
   private record BeanData(Constructor<?> constructor, Map<String, PropertyDescriptor> propertyMap) {
     PropertyDescriptor findProperty(String key) {
       var property = propertyMap.get(key);
@@ -34,6 +32,13 @@ public class JSONReader {
     }
   };
 
+  @FunctionalInterface
+  public interface TypeMatcher {
+    Optional<ObjectBuilder<?>> match(Type type);
+  }
+
+  private final ArrayList<TypeMatcher> typeMatchers = new ArrayList<>();
+
   public record ObjectBuilder<T>(Function<? super String, ? extends Type> typeProvider,
                                  Supplier<? extends T> supplier,
                                  Populater<? super T> populater,
@@ -51,18 +56,41 @@ public class JSONReader {
           Function.identity()
       );
     }
+
+    public static ObjectBuilder<List<Object>> list(Type elementType) {
+      Objects.requireNonNull(elementType);
+      return new ObjectBuilder<>(
+          key -> elementType,
+          ArrayList::new,
+          (list, key, value) -> list.add(value),
+          List::copyOf
+      );
+    }
   }
 
-  private record Context(ObjectBuilder<Object> builder, Object result) {}
+  private record Context<T>(ObjectBuilder<T> builder, T result) {
+
+    Object finish() {
+      return builder.finisher().apply(result);
+    }
+
+    void populate(String key, Object value) {
+      builder.populater().populate(result, key, value);
+    }
+
+    static <T> Context<T> create(ObjectBuilder<T> builder) {
+      return new Context<>(builder, builder.supplier.get());
+    }
+  }
 
   public <T> T parseJSON(String text, Class<T> expectedClass) {
-    return expectedClass.cast(parseJSON(text, (Type) expectedClass));
+    return expectedClass.cast(parseJSON(text, (Type)expectedClass));
   }
 
   public Object parseJSON(String text, Type expectedType) {
     Objects.requireNonNull(text);
     Objects.requireNonNull(expectedType);
-    var stack = new ArrayDeque<Context>();
+    var stack = new ArrayDeque<Context<?>>();
     var visitor = new ToyJSONParser.JSONVisitor() {
       private Object result;
 
@@ -70,7 +98,7 @@ public class JSONReader {
       public void value(String key, Object value) {
         // call the corresponding setter on result
         var context = stack.peek();
-        context.builder.populater.populate(context.result, key, value);
+        context.populate(key, value);
       }
 
       @Override
@@ -81,32 +109,47 @@ public class JSONReader {
             ? expectedType
             : context.builder.typeProvider.apply(key);
         //create an instance and store it in result
-        var objectbuilder = ObjectBuilder.bean(Utils.erase(beanType));
-        stack.push(new Context(objectbuilder, objectbuilder.supplier.get()));
+        var objectbuilder = findObjectsBuilder(beanType);
+        stack.push(Context.create(objectbuilder));
       }
 
       @Override
       public void endObject(String key) {
         var previousContext = stack.pop();
         if (stack.isEmpty()) {
-          result = previousContext.result;
+          result = previousContext.finish();
         } else {
           var context = stack.peek();
-          context.builder.populater().populate(context.result, key, previousContext.result);
+
+          context.populate(key, previousContext.finish());
         }
       }
 
       @Override
       public void startArray(String key) {
-        throw new UnsupportedOperationException("Implemented later");
+        startObject(key);
       }
 
       @Override
       public void endArray(String key) {
-        throw new UnsupportedOperationException("Implemented later");
+        endObject(key);
       }
     };
     ToyJSONParser.parse(text, visitor);
     return visitor.result;
   }
+
+  public void addTypeMatcher(TypeMatcher typeMatcher) {
+    Objects.requireNonNull(typeMatcher);
+    typeMatchers.add(typeMatcher);
+  }
+
+  private ObjectBuilder<?> findObjectsBuilder(Type type) {
+    return typeMatchers.reversed().stream()
+        .flatMap(typeMatcher -> typeMatcher.match(type).stream())
+        .findFirst()
+        .orElseGet(() -> ObjectBuilder.bean(Utils.erase(type)));
+  }
 }
+
+// TODO Q6 à la maison

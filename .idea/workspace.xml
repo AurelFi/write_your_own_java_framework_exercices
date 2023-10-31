@@ -506,7 +506,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698746647393</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="JSON Parser Q4 - correction">
+      <option name="closed" value="true" />
+      <created>1698746972488</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1698746972488</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -525,7 +533,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Injector Q2" />
     <MESSAGE value="Injector Q3" />
     <MESSAGE value="Injector Q4" />
     <MESSAGE value="Injector Q5" />
@@ -550,7 +557,8 @@
     <MESSAGE value="JSON Parser Q1" />
     <MESSAGE value="JSON Parser Q2" />
     <MESSAGE value="JSON Parser Q3" />
-    <option name="LAST_COMMIT_MESSAGE" value="JSON Parser Q3" />
+    <MESSAGE value="JSON Parser Q4 - correction" />
+    <option name="LAST_COMMIT_MESSAGE" value="JSON Parser Q4 - correction" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
