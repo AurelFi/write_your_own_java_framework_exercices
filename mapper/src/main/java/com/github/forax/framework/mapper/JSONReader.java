@@ -34,7 +34,7 @@ public class JSONReader {
     }
   };
 
-  public record ObjectBuilder<T>(Function<? super String, ? extends Class<?>> typeProvider,
+  public record ObjectBuilder<T>(Function<? super String, ? extends Type> typeProvider,
                                  Supplier<? extends T> supplier,
                                  Populater<? super T> populater,
                                  Function<? super T, ?> finisher) {
@@ -45,7 +45,7 @@ public class JSONReader {
     public static ObjectBuilder<Object> bean(Class<?> beanClass) {
       var beanData = BEAN_DATA_CLASS_VALUE.get(beanClass);
       return new ObjectBuilder<>(
-          key -> beanData.findProperty(key).getPropertyType(),
+          key -> beanData.findProperty(key).getWriteMethod().getGenericParameterTypes()[0],
           () -> Utils.newInstance(beanData.constructor),
           (instance, key, value) -> Utils.invokeMethod(instance, beanData.findProperty(key).getWriteMethod(), value),
           Function.identity()
@@ -55,9 +55,13 @@ public class JSONReader {
 
   private record Context(ObjectBuilder<Object> builder, Object result) {}
 
-  public <T> T parseJSON(String text, Class<T> beanClass) {
+  public <T> T parseJSON(String text, Class<T> expectedClass) {
+    return expectedClass.cast(parseJSON(text, (Type) expectedClass));
+  }
+
+  public Object parseJSON(String text, Type expectedType) {
     Objects.requireNonNull(text);
-    Objects.requireNonNull(beanClass);
+    Objects.requireNonNull(expectedType);
     var stack = new ArrayDeque<Context>();
     var visitor = new ToyJSONParser.JSONVisitor() {
       private Object result;
@@ -74,10 +78,10 @@ public class JSONReader {
         var context = stack.peek();
         //get the beanData and store it in the field
         var beanType = context == null
-            ? beanClass
+            ? expectedType
             : context.builder.typeProvider.apply(key);
         //create an instance and store it in result
-        var objectbuilder = ObjectBuilder.bean(beanType);
+        var objectbuilder = ObjectBuilder.bean(Utils.erase(beanType));
         stack.push(new Context(objectbuilder, objectbuilder.supplier.get()));
       }
 
@@ -103,6 +107,6 @@ public class JSONReader {
       }
     };
     ToyJSONParser.parse(text, visitor);
-    return beanClass.cast(visitor.result);
+    return visitor.result;
   }
 }
