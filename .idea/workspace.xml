@@ -54,6 +54,7 @@
   "keyToString": {
     "JUnit.JSONReaderTest$Q1.executor": "Run",
     "JUnit.JSONReaderTest$Q2.executor": "Run",
+    "JUnit.JSONReaderTest.executor": "Run",
     "JUnit.ORMTest$Q1.executor": "Run",
     "JUnit.ORMTest$Q10.executor": "Run",
     "JUnit.ORMTest$Q3.executor": "Run",
@@ -116,7 +117,7 @@
       <command value="mvn package" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.JSONReaderTest$Q2">
+  <component name="RunManager" selected="JUnit.JSONReaderTest">
     <configuration name="JSONReaderTest$Q1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mapper" />
       <extension name="coverage">
@@ -147,6 +148,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="JSONReaderTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mapper" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.forax.framework.mapper.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.forax.framework.mapper" />
+      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.mapper.JSONReaderTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ORMTest$Q10" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="orm" />
       <extension name="coverage">
@@ -157,21 +173,6 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.github.forax.framework.orm.ORMTest" />
       <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest$Q10" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ORMTest$Q9" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="orm" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.github.forax.framework.orm.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.github.forax.framework.orm.ORMTest" />
-      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest$Q9" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -194,11 +195,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.JSONReaderTest" />
         <item itemvalue="JUnit.JSONReaderTest$Q2" />
         <item itemvalue="JUnit.JSONReaderTest$Q1" />
         <item itemvalue="JUnit.ORMTest" />
         <item itemvalue="JUnit.ORMTest$Q10" />
-        <item itemvalue="JUnit.ORMTest$Q9" />
       </list>
     </recent_temporary>
   </component>
@@ -489,7 +490,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698741767349</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="JSON Parser Q2">
+      <option name="closed" value="true" />
+      <created>1698743965019</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1698743965019</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -508,7 +517,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Mapper-Q6tmp" />
     <MESSAGE value="Injector Q1" />
     <MESSAGE value="Injector Q2" />
     <MESSAGE value="Injector Q3" />
@@ -533,7 +541,8 @@
     <MESSAGE value="ORM Q10" />
     <MESSAGE value="ORM Q11" />
     <MESSAGE value="JSON Parser Q1" />
-    <option name="LAST_COMMIT_MESSAGE" value="JSON Parser Q1" />
+    <MESSAGE value="JSON Parser Q2" />
+    <option name="LAST_COMMIT_MESSAGE" value="JSON Parser Q2" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

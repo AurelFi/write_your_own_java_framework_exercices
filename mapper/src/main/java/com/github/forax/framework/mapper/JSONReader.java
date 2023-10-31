@@ -3,11 +3,13 @@ package com.github.forax.framework.mapper;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Type;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class JSONReader {
@@ -32,13 +34,31 @@ public class JSONReader {
     }
   };
 
-  private record Context(BeanData beanData, Object result) {}
+  public record ObjectBuilder<T>(Function<? super String, ? extends Class<?>> typeProvider,
+                                 Supplier<? extends T> supplier,
+                                 Populater<? super T> populater,
+                                 Function<? super T, ?> finisher) {
+    public interface Populater<T> {
+      void populate(T instance, String key, Object value);
+    }
+
+    public static ObjectBuilder<Object> bean(Class<?> beanClass) {
+      var beanData = BEAN_DATA_CLASS_VALUE.get(beanClass);
+      return new ObjectBuilder<>(
+          key -> beanData.findProperty(key).getPropertyType(),
+          () -> Utils.newInstance(beanData.constructor),
+          (instance, key, value) -> Utils.invokeMethod(instance, beanData.findProperty(key).getWriteMethod(), value),
+          Function.identity()
+      );
+    }
+  }
+
+  private record Context(ObjectBuilder<Object> builder, Object result) {}
 
   public <T> T parseJSON(String text, Class<T> beanClass) {
     Objects.requireNonNull(text);
     Objects.requireNonNull(beanClass);
-    ArrayDeque<Context> stack = new ArrayDeque<>();
-
+    var stack = new ArrayDeque<Context>();
     var visitor = new ToyJSONParser.JSONVisitor() {
       private Object result;
 
@@ -46,23 +66,19 @@ public class JSONReader {
       public void value(String key, Object value) {
         // call the corresponding setter on result
         var context = stack.peek();
-        Utils.invokeMethod(
-            context.result,
-            context.beanData.findProperty(key).getWriteMethod(),
-            value
-        );
+        context.builder.populater.populate(context.result, key, value);
       }
 
       @Override
       public void startObject(String key) {
         var context = stack.peek();
         //get the beanData and store it in the field
-        var beanData = BEAN_DATA_CLASS_VALUE.get(context == null
+        var beanType = context == null
             ? beanClass
-            : context.beanData.findProperty(key).getPropertyType());
+            : context.builder.typeProvider.apply(key);
         //create an instance and store it in result
-        result = Utils.newInstance(beanData.constructor());
-        stack.push(new Context(beanData, result));
+        var objectbuilder = ObjectBuilder.bean(beanType);
+        stack.push(new Context(objectbuilder, objectbuilder.supplier.get()));
       }
 
       @Override
@@ -72,11 +88,7 @@ public class JSONReader {
           result = previousContext.result;
         } else {
           var context = stack.peek();
-          Utils.invokeMethod(
-              context.result,
-              context.beanData.findProperty(key).getWriteMethod(),
-              previousContext.result
-          );
+          context.builder.populater().populate(context.result, key, previousContext.result);
         }
       }
 
