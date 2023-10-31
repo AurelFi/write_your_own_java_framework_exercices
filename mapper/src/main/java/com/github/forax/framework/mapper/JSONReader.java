@@ -3,6 +3,7 @@ package com.github.forax.framework.mapper;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
@@ -31,32 +32,52 @@ public class JSONReader {
     }
   };
 
+  private record Context(BeanData beanData, Object result) {}
+
   public <T> T parseJSON(String text, Class<T> beanClass) {
     Objects.requireNonNull(text);
     Objects.requireNonNull(beanClass);
+    ArrayDeque<Context> stack = new ArrayDeque<>();
+
     var visitor = new ToyJSONParser.JSONVisitor() {
-      private BeanData beanData;
       private Object result;
 
       @Override
       public void value(String key, Object value) {
         // call the corresponding setter on result
-        var setter = beanData.findProperty(key).getWriteMethod();
-        Utils.invokeMethod(result, setter, value);
-
+        var context = stack.peek();
+        Utils.invokeMethod(
+            context.result,
+            context.beanData.findProperty(key).getWriteMethod(),
+            value
+        );
       }
 
       @Override
       public void startObject(String key) {
+        var context = stack.peek();
         //get the beanData and store it in the field
-        beanData = BEAN_DATA_CLASS_VALUE.get(beanClass);
+        var beanData = BEAN_DATA_CLASS_VALUE.get(context == null
+            ? beanClass
+            : context.beanData.findProperty(key).getPropertyType());
         //create an instance and store it in result
         result = Utils.newInstance(beanData.constructor());
+        stack.push(new Context(beanData, result));
       }
 
       @Override
       public void endObject(String key) {
-        // do nothing
+        var previousContext = stack.pop();
+        if (stack.isEmpty()) {
+          result = previousContext.result;
+        } else {
+          var context = stack.peek();
+          Utils.invokeMethod(
+              context.result,
+              context.beanData.findProperty(key).getWriteMethod(),
+              previousContext.result
+          );
+        }
       }
 
       @Override
