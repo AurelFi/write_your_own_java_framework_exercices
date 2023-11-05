@@ -50,51 +50,51 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "JUnit.JSONReaderTest$Q1.executor": "Run",
-    "JUnit.JSONReaderTest$Q2.executor": "Run",
-    "JUnit.JSONReaderTest.executor": "Run",
-    "JUnit.ORMTest$Q1.executor": "Run",
-    "JUnit.ORMTest$Q10.executor": "Run",
-    "JUnit.ORMTest$Q3.executor": "Run",
-    "JUnit.ORMTest$Q3.testCreateTableEmpty.executor": "Debug",
-    "JUnit.ORMTest$Q3.testFindTableName.executor": "Run",
-    "JUnit.ORMTest$Q4.executor": "Run",
-    "JUnit.ORMTest$Q5.executor": "Run",
-    "JUnit.ORMTest$Q6.executor": "Run",
-    "JUnit.ORMTest$Q7.executor": "Run",
-    "JUnit.ORMTest$Q9.executor": "Run",
-    "JUnit.ORMTest.executor": "Run",
-    "Notification.DisplayName-DoNotAsk-Compiler": "Build finished",
-    "Notification.DisplayName-DoNotAsk-WindowsDefender": "Microsoft Defender configuration",
-    "Notification.DoNotAsk-Compiler": "true",
-    "Notification.DoNotAsk-WindowsDefender": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "full.screen.before.presentation.mode": "false",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Documents/Education/ESIPE/S3/Projet/FICHE",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JUnit.JSONReaderTest$Q1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.JSONReaderTest$Q2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.JSONReaderTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ORMTest$Q1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ORMTest$Q10.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ORMTest$Q3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ORMTest$Q3.testCreateTableEmpty.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ORMTest$Q3.testFindTableName.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ORMTest$Q4.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ORMTest$Q5.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ORMTest$Q6.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ORMTest$Q7.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ORMTest$Q9.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ORMTest.executor&quot;: &quot;Run&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Compiler&quot;: &quot;Build finished&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-WindowsDefender&quot;: &quot;Microsoft Defender configuration&quot;,
+    &quot;Notification.DoNotAsk-Compiler&quot;: &quot;true&quot;,
+    &quot;Notification.DoNotAsk-WindowsDefender&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Documents/Education/ESIPE/S3/Projet/FICHE&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "GitStage.ChangesTree.GroupingKeys": [
-      "directory",
-      "module",
-      "repository"
+  &quot;keyToStringList&quot;: {
+    &quot;GitStage.ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;,
+      &quot;module&quot;,
+      &quot;repository&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/orm/src/main/java/com/github/forax/framework/orm" />
@@ -117,7 +117,7 @@
       <command value="mvn package" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.JSONReaderTest">
+  <component name="RunManager" selected="JUnit.JSONReaderTest$Q6">
     <configuration name="JSONReaderTest$Q1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mapper" />
       <extension name="coverage">
@@ -148,6 +148,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="JSONReaderTest$Q6" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mapper" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.forax.framework.mapper.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.forax.framework.mapper.JSONReaderTest" />
+      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.mapper.JSONReaderTest$Q6" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="JSONReaderTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mapper" />
       <extension name="coverage">
@@ -158,21 +173,6 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.github.forax.framework.mapper" />
       <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.mapper.JSONReaderTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ORMTest$Q10" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="orm" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.github.forax.framework.orm.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.github.forax.framework.orm.ORMTest" />
-      <option name="MAIN_CLASS_NAME" value="com.github.forax.framework.orm.ORMTest$Q10" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -195,11 +195,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.JSONReaderTest$Q6" />
         <item itemvalue="JUnit.JSONReaderTest" />
         <item itemvalue="JUnit.JSONReaderTest$Q2" />
         <item itemvalue="JUnit.JSONReaderTest$Q1" />
         <item itemvalue="JUnit.ORMTest" />
-        <item itemvalue="JUnit.ORMTest$Q10" />
       </list>
     </recent_temporary>
   </component>

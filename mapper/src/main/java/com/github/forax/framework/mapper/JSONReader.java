@@ -3,11 +3,13 @@ package com.github.forax.framework.mapper;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class JSONReader {
 
@@ -81,6 +83,24 @@ public class JSONReader {
     static <T> Context<T> create(ObjectBuilder<T> builder) {
       return new Context<>(builder, builder.supplier.get());
     }
+  }
+
+  public interface TypeReference<T> {}
+
+  private static Type findElemntType(TypeReference<?> typeReference) {
+    var typeReferenceType = Arrays.stream(typeReference.getClass().getGenericInterfaces())
+        .flatMap(t -> t instanceof ParameterizedType parameterizedType? Stream.of(parameterizedType): null)
+        .filter(t -> t.getRawType() == TypeReference.class)
+        .findFirst()
+        .orElseThrow(() -> new IllegalArgumentException("invalid TypeReference " + typeReference));
+    return typeReferenceType.getActualTypeArguments()[0];
+  }
+
+  public <T> T parseJSON(String text, TypeReference<T> typeReference) {
+    var expectedType = findElemntType(typeReference);
+    @SuppressWarnings("unchecked")
+    var result = (T)parseJSON(text, expectedType);
+    return result;
   }
 
   public <T> T parseJSON(String text, Class<T> expectedClass) {
