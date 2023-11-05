@@ -9,6 +9,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class JSONReader {
@@ -47,6 +48,21 @@ public class JSONReader {
                                  Function<? super T, ?> finisher) {
     public interface Populater<T> {
       void populate(T instance, String key, Object value);
+    }
+
+    public static ObjectBuilder<Object[]> record(Class<?> recordClass) {
+      Objects.requireNonNull(recordClass);
+      var components = recordClass.getRecordComponents();
+      var map = IntStream.range(0, components.length)
+          .boxed()
+          .collect(Collectors.toMap(i -> components[i].getName(), Function.identity()));
+      var constructor = Utils.canonicalConstructor(recordClass, components);
+      return new ObjectBuilder<>(
+          key -> components[map.get(key)].getGenericType(),
+          () -> new Object[components.length],
+          (array, key, value) -> array[map.get(key)] = value,
+          array -> Utils.newInstance(constructor, array)
+      );
     }
 
     public static ObjectBuilder<Object> bean(Class<?> beanClass) {
